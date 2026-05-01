@@ -16,7 +16,7 @@ ORG 20H
 
 configuro:
     movlb 0H
-    movlw 70H ; es el 0111 0000 
+    movlw 70H ;  CONFIGURACION BASICA PARA EL OSCILADOR EXTERNO! 
     movwf OSCCON1, b
     
     movlw 80H
