@@ -83,6 +83,8 @@ PSECT code, reloc = 2, abs  ; vamos dar inicio al programa
     
     return ; regresamos y ejecutamos la linea que sigue, regresamos porque hicimos un call 
     
+    end 
+    
     
      
     
