@@ -4,13 +4,12 @@ Linker command line:
 
 -W-3 \
   --edf=C:\Program Files\Microchip\xc8\v3.10\pic\dat\20250813170317_en.msgs \
-  -cs -h+dist/default/debug\encender_apagar_led_con_pulsador.X.debug.sym \
-  --cmf=dist/default/debug\encender_apagar_led_con_pulsador.X.debug.cmf -z \
-  -Q18F57Q43 -oC:\Users\danie\AppData\Local\Temp\xcAsp68.0\driver_tmp_3.o \
+  -cs -h+dist/default/debug\puntero.X.debug.sym \
+  --cmf=dist/default/debug\puntero.X.debug.cmf -z -Q18F57Q43 \
+  -oC:\Users\danie\AppData\Local\Temp\xcAs88o.0\driver_tmp_3.o \
   --fixupoverflow=error -ver=XC8 PIC(R) Assembler --fixupoverflow=lstwarn \
-  -Mdist/default/debug/encender_apagar_led_con_pulsador.X.debug.map -E1 \
-  -ACODE=00h-01FFFFh -ACONST=00h-01FFFFh \
-  -ASMALLCONST=02600h-026FFhx218,012600h-0126FFhx218 \
+  -Mdist/default/debug/puntero.X.debug.map -E1 -ACODE=00h-01FFFFh \
+  -ACONST=00h-01FFFFh -ASMALLCONST=02600h-026FFhx218,012600h-0126FFhx218 \
   -AMEDIUMCONST=02600h-0FFFFh,012600h-01FFFFh -ACOMRAM=0500h-055Fh \
   -AABS1=0500h-024FFh -ABIGRAM=0500h-024FFh \
   -ARAM=0560h-05FFh,0600h-06FFhx31 -ABANK5=0560h-05FFh -ABANK6=0600h-06FFh \
@@ -27,7 +26,7 @@ Linker command line:
   -ASFR=00h-0FFhx4,0400h-045Fh,0460h-04FFh,02500h-025FFh \
   -ABIGSFR=00h-04FFh,02500h-025FFh -ACONFIG=030000Ah-0300011h \
   -AIDLOC=0200000h-020003Fh -AEEDATA=0380000h-03803FFh \
-  build/default/debug/encender_apagar_led_con_pulsador.o 
+  build/default/debug/puntero.o 
 
 Object code version is 3.11
 
@@ -36,13 +35,13 @@ Machine type is 18F57Q43
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-build/default/debug/encender_apagar_led_con_pulsador.o
+build/default/debug/puntero.o
                 config                           300000   300000        A        0       4
-                code                                  0        0       50        0       0
+                code                                  0        0      504        0       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   CODE           
-                code                                  0        0       50         0
+                code                                  0        0      504         0
 
         CLASS   CONST          
 
@@ -174,20 +173,18 @@ UNUSED ADDRESS RANGES
         BANK7            000700-0007FF              100
         BANK8            000800-0008FF              100
         BANK9            000900-0009FF              100
-        BIGRAM           000500-0024FF             2000
-        BIGSFR           000050-0004FF              4B0
-                         002500-0025FF              100
-        CODE             000050-01FFFF            1FFB0
+        BIGRAM           000504-0024FF             1FFC
+        BIGSFR           002500-0025FF              100
+        CODE             000504-01FFFF            1FAFC
         COMRAM           000500-00055F               60
         CONFIG           30000A-300011                8
-        CONST            000050-01FFFF            1FFB0
+        CONST            000504-01FFFF            1FAFC
         EEDATA           380000-3803FF              400
         IDLOC            200000-20003F               40
         MEDIUMCONST      002600-00FFFF             DA00
                          012600-01FFFF             DA00
         RAM              000560-0024FF              100
-        SFR              000050-0004FF              100
-                         002500-0025FF              100
+        SFR              002500-0025FF              100
         SMALLCONST       002600-00FFFF              100
                          012600-01FFFF              100
 
@@ -195,7 +192,7 @@ UNUSED ADDRESS RANGES
 
 __H__absolute__ __absolute__ 000000  __Hcode         code         000000
 __Hconfig       config       30000A  __Hdata         data         000000
-__Hedata        edata        000000  __Hspace_0      (abs)        000050
+__Hedata        edata        000000  __Hspace_0      (abs)        000504
 __Hspace_1      (abs)        000000  __Hspace_3      (abs)        000000
 __Hspace_4      (abs)        60000A  __Hudata        udata        000000
 __Hudata_acs    udata_acs    000000  __Hudata_bank10 udata_bank10 000000
