@@ -1,4 +1,5 @@
-PROCESSOR 18F57Q43
+; vamos ingresar un numero utilizando 2 swith de 4 patitas 
+    PROCESSOR 18F57Q43
     #include <xc.inc>
     #include <pic18f57q43.inc>
     #include "cabecera.inc"
@@ -10,16 +11,18 @@ PROCESSOR 18F57Q43
  ORG 20H
  
  configuro:
-    movlb 0H ; banco 0 , vamos a configurar el oscilador 
+    movlb 0H 
     movlw 60H
-    movwf OSCCON1, b ; definimos que oscilador utilizamos 
+    movwf OSCCON1, b 
     movlw 02H
-    movwf OSCFRQ,b ; definimos la velocidad del oscilador 
+    movwf OSCFRQ,b 
     movlw 40H
-    movwf OSCEN, b ; activa el oscildor 
+    movwf OSCEN,b 
     
     ; VAMOS A CONFIGURAR EL PIN DEL NUMERO , SERA ENTRADA DIGITAL 
     ; AHORA TAMBIEN LOS PINES DEL LED QUE NOS DIRA SI ES MAYOR, MENOR O NINGUNO
+    
+    
     ; 0 DIGITAL, 1 ANALOGICO 
     movlb 04H
     clrf ANSELB, b ; al poner todo en 0 ponemos todos los pines del puerto B DIGITAL, ( 1 ANALOGICO ) 
@@ -27,27 +30,29 @@ PROCESSOR 18F57Q43
     
     ; vamos a configurar si es salida o entrada (0 SALIDA, 1 ENTRADA  ) 
     movlw 0FFH ; ese numero en hexadecimal es el nuero 1111 1111 en binario 
-    movwf TRISB, b ; estamos poniendo todos los pines del puerto B en entrada ( PARA RECIBIR EL VALOR QUE LE DAMOS) 
-    clrf TRISD, b ; como salida  para nuestros led 
+    movwf TRISB, b 
+    clrf TRISD, b 
     
     ; COMO TENEMOS UNA SALIDA, VAMOS A DEFINIR SI LA SALIDA SERA EN BAJO O ALTO
-    clrf LATD, b ; LA SALIDA SERA EN BAJO, INICIA EN 0000 0000 
+    clrf LATD, b 
     
 inicio:
     movlb 4H ; porque recurda que esn ete banco se encarga de los pines
-    movf PORTB, w, b ; vamos a pasar el valor que hay en el puerto B al registro w 
-    ; como definimos el puerto B como entrada si podemos hace esto ! 
+    movf PORTB, w, b ;
     movlb 05H ; nos vamos al banco 5  porque recuerd que ahi ubicamos nuestra variable numero 
     movwf numero, b ; el valor que recogimos de la entrada de puerto b lo pasamos a nuesta variable numero 
     
     ; VAMOS A INICIAR CON LAS EVALUACIONES ! 
-    movlw 200 ; contra este numero queremos comparar .
-    cpfsgt numero,b ; le pregunta si numero es mayor a w 
+    movlw 200 .
+    cpfsgt numero,b ; le pregunta si numero es mayor a w ; si es verdad salta la siguiente linea 
+    
     goto evaluar_menor
     goto si_es_mayor_numero
     
     evaluar_menor:
+    
     movlw 70 ; la otra opcion es que sea menor queeste  entre 70 y  200 
+    
     cpfslt numero, b ; le preguntamos si numero es  menor que w 
     goto es_medio
     goto confirmado_es_menor

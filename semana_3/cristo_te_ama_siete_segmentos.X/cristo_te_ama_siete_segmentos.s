@@ -1,4 +1,4 @@
-PROCESSOR 18F57Q43
+ PROCESSOR 18F57Q43
     #include <xc.inc>
     #include <pic18f57q43.inc>
     #include "cabecera.inc"
@@ -22,18 +22,18 @@ PROCESSOR 18F57Q43
     movwf OSCFRQ, b
     movlw 40H
     movwf OSCEN, b 
-    ; YA CONFIGURAMOS NUESTRO OSCILADOR INTERNO 
+    
     
     ;VAMOS A CONFIGURAR NUESTROS PINES
     movlb 04H
      
     ;definimos como salida digital 
-     clrf TRISD, b ; todos los pines del puerto D como digital ( 0 digital, 1 analog) 
-     clrf ANSELD, b ; todos los pines como salida ( o salida, 1 entrada ) 
+     clrf TRISD, b ; todos los pines del puerto D como digital ( 0 Salida, 1 entrada) 
+     clrf ANSELD, b ; todos los pines como salida ( o digital, 1 analogico ) 
      clrf LATD, b ; al inciio todo estaran a 0v 
      
 inicio: 
-    movlw 39H
+    movlw 39H ; C en el 7 segmentos 
     movwf LATD, b ; vamos a activar el C de cristo te ama, osea el LATD, madna en voltaje el numero que le damos 
     call retardo1
     movlw 50H 
@@ -51,9 +51,11 @@ inicio:
     movlw 3FH
     movwf LATD, b
     call retardo1
+    
     movlw 00H ; ESTE ES EL ESPACIO 
     movwf LATD, b
     call retardo1
+    
     movlw 78H
     movwf LATD, b
     call retardo1

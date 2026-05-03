@@ -33284,7 +33284,7 @@ ENDM
 
 PSECT code, reloc=2, abs
 
-valor equ 00H ; direccion 500H (Bank 5)
+valor equ 00H ; direccion 500H (Bank 5), es automatico
 
 ORG 000000H
 goto configuro
@@ -33298,15 +33298,23 @@ configuro:
     movwf OSCFRQ,b
     movlw 40H ; habilita el oscilador interno
     movwf OSCEN,b
+
+    ;CONFIGURACION PINES
     movlb 04H ; banco 4 (TRISB ANSELB LATB)
     bsf TRISB,4,b ; ((PORTB) and 0FFh), 4, a: Entrada
     bcf ANSELB,4,b ; ((PORTB) and 0FFh), 4, a: Digital
     bsf WPUB,4,b ; ((PORTB) and 0FFh), 4, a: Pull-Up
-    movlw 00000000B ; RD<7-0>: Salidas
+    ;WPU -> registro de control de pull ups ,
+    ; en este caso ponemos en pull upp el pin ((PORTB) and 0FFh), 4, a
+
+    movlw 00000000B ; RD<7-0>: Salidas ( EN VEZ DE PONER EN HEXA, PONGO EN BINARIO)
     movwf TRISD,b
+
     clrf ANSELD,b ; RD<7-0>: Digital
+
     movlw 3FH
     movwf LATD,b ; Display en valor 0
+
     movlb 05H ; bank 5
     clrf valor,b ; valor = 0
     movlb 04H ; bank 4

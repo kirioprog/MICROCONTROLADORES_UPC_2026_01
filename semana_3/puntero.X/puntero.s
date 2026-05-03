@@ -13,33 +13,36 @@ variable1 equ 500H
 variable2 equ 501H
 
 variable3 equ 502H
+ 
 ORG 000500H ; AQUI VAMOS ALMACENAR LOS DATOS DE LA TABLA, LOS DEL EJERCICIO
 numero: db 0x04H, 0xAFH, 0xBEH,0x89H ; numero es l etiqueta, db significa definir byte y estos valores se van almacenar				
 ; en la direccion numero + 0, numero +1, etc , COM OPUEDES VER LA DIRECCION NUMERO ES 000500H PORQWUE HICIMOS EL STALTO HASTA AQUI 
+ 
 ORG 0 ; recuerda que aqui inicia el prohgrama cuando lo  prendo 
 goto configuro ; hacemos un salto a la etiqueta configuro para evitar los vectores 
 ORG 20 ; aqui termina el salto 
 
  
  configuro:
-    movlb 0 ; vamos al banco 0 porque aqui estan los registros del oscilador
-    movlw 60 
-    movwf OSCCON1, b ; contorlamos el selector del oscilador 
-    movlw 2
+    movlb 0 ; 
+    movlw 60H
+    movwf OSCCON1, b 
+    movlw 2H
     movwf OSCFRQ,b
-    movlw 40
+    movlw 40H
     movwf OSCEN, b
-    movlb 4 ; NOS MOVEMOS AL BANCO 4 
-    clrf TRISD,b  ; VAMOS A TRABAJAR CON EL PUERTO D POR ESO PONEMOS AL FINAL LA D
-		   ; el clrf pone todos los pines del puerto D en 0 , y recuerda 0 es ponerlos como slaida y 1 entrada
-    clrf ANSELD, b ; configuramos todos los pines como  puerto digital porque 0 es digital y 1 es analogic
+    
+    ; configuramos pines
+    movlb 4H ; NOS MOVEMOS AL BANCO 4 
+    clrf TRISD,b ; el clrf pone todos los pines del puerto D en 0 , y recuerda (0salida, 1 entrada) 
+    clrf ANSELD, b ; (0 digital, 1 analogico)
     clrf LATD, b ; ponemos todos los pindes del puerto D a 0v porque 0 es low y 1 es high 
 				
 				
-; VAMOS A INICAR CON EL BUCLE PIRNCIPAL
-inicio: ; es la etiqueta que le damos para iniciar toedo  
+
+inicio: 
     
-    ; VAMOS IR AL PUNTERO 000500H que es en donde ubicamos nuetra etiqueta numero lineas mas arribas con el	ORG
+    ; VAMOS IR AL PUNTERO 000500H que es en donde ubicamos nuetra etiqueta numero lineas mas arribas con el ORG
     
     movlw 00 ; nos vamos al registro 0 del banoc 5 en donde estsmos ubicados
     movwf TBLPTRU,b ; Vamos a poner el la tabal de puntero en la parte de mayor pero el 00 

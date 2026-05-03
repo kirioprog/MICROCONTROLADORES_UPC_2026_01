@@ -2,36 +2,34 @@ PROCESSOR 18F57Q43
     #include<xc.inc>
     #include<pic18f57q43.inc>
     #include "cabecera.inc>
-    PSECT code, reloc=2, abs ; practicamente definimos la programacion a utilizar
+    PSECT code, reloc=2, abs 
+ 
  variable1 equ 500H ; vamos a reemplazar estas direcciones en el banco 5 por dichos nombres
  variable2 equ 501H
  variable3 equ 502H
- ORG 0 ; vamos arrancar el programa, siempre aca 
- goto configuro ; saltamos a la configuracion de pines, oscilador, etc 
- ORG 20 ; saltamos los vectores que no se pueden utilziar 
+ 
+ ORG 0 
+ goto configuro 
+ ORG 20 
  configuro:
     movlb 0H ; nos vamos al banco 0  por los registros  del oscilador (VAMOS A UTIILZAR OSCILADOR INTERNO) 
-    movlw 60H ; pasamos el literal al registro w 
+    movlw 60H
     movwf OSCCON1, b 
     movlw 2H
     movwf OSFRQ,b 
     movlw 40H
     movwf OSCEN, b 
-    ; HASTA ACA LLEGO LA CONFIGURACION QUE SIEMPRE HACEMOS PARA EL OSCILADOR INTERNO 
     
     ; VAMOS A CONFIGURAR LOS PINES QUE VAMOS A UTLIZAR 
     movlb 4H ; nos vamos al banco 4  porque aqui estan los registros que controlan  los pines
-    clrf TRISD,b ; Vamos a utilizar los pines del puerto D, ponemos todos los pines del puerto en 0 (osea van a ser salidas) 
-    clrf ANSELD, b ; el anseld hace que todos los pines sean digital por ser 0 ( 0 digital, 1 analogico) 
-    clrf LATD, b ; como definimos nuestros pines en salida, el LATD nos dice cuanto va a salir en V, al estar todo en 0, van a salir 0V
+    clrf TRISD,b ; 0 salida, 1 entrada ) 
+    clrf ANSELD, b ( 0 digital, 1 analogico) 
+    clrf LATD, b 
     
-    ; HASTA ACA LOGRAMOS DEFINIR TODOS LOS PINES DEL PUERTO D COMO SALIDAS DIGITALES Y QUE ENTREGEN 0V 
-    
-    ; VAMOS A INICIAR CON NUESTRO PROGRAMA PRINCIPAL !
  inicio: 
     incf LATD, b  ; vamos a sumar 1 al valor actual que hay en el puerto D , banqueamos al banco 4( ahi definimos los pines) 
     ;el incf lo que hace es incrementar 
-    ; recuerda que pusimos todos nuestros pines en 0 osea el numero seria 00000000, si le aumentamos en 1 etc.. 
+    ; recuerda que pusimos todos nuestros pines en 0 osea el numero seria 0000 0001, si le aumentamos en 1 etc.. 
     call retardo ; vamos a retardo y luego regresamos
     goto inicio  ; asi nos encerramos en el bucle.. 
     

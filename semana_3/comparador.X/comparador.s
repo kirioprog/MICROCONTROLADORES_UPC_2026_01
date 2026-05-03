@@ -40,6 +40,7 @@ configuro:
 inicio:
     movlb 04H
     movf PORTB, w, b ; leer el estado del puerto B y guardamos en registro w 
+    
     andlw 0FH  ; leemos solo los 3 bits menos significativos. 
     
     movlb 05H
@@ -54,6 +55,7 @@ inicio:
     movf numB, w, b ; pasamos el valor del numB al  registro w
 
     cpfseq numD, b ; verificamos si eta igual, si es diferente salta la sigueinte linea 
+    
     goto no_son_iguales
     goto prender_igual ; si es igual se va a este goto 
 
