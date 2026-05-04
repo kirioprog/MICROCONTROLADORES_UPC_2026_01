@@ -78,6 +78,8 @@ tabla:
     addwf    PCL,f,b         ; PCL = PCL + WREG (salta a la direccion del PCL)
     ; osea lo que va a pasar en este caso es que va ejecutar la linea wreg posiciones mas abajo de PCL	
     ;  EJEMPLO W es 2 va ejecutar la el 5BH 
+    ; esto pasa por el PCL-> PROGRAM COUNTER  LOW(salto calculado) 
+    ; tambien puedes aplicar el a 
     
     ;retlw -> returnn literal en w
     ; carga el valor , por ejemplo 5FH en  el registro w  y regresa a donde la llamaste (call  tabla) 

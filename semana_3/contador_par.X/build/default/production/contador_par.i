@@ -1,10 +1,10 @@
-# 1 "ejercicio_3.s"
+# 1 "contador_par.s"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 296 "<built-in>" 3
 # 1 "<command line>" 1
 # 1 "<built-in>" 2
-# 1 "ejercicio_3.s" 2
+# 1 "contador_par.s" 2
 PROCESSOR 18F57Q43
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 1 3
 
@@ -33223,7 +33223,7 @@ stk_offset SET 0
 auto_size SET 0
 ENDM
 # 6 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 2 3
-# 3 "ejercicio_3.s" 2
+# 3 "contador_par.s" 2
 
 # 1 "./cabecera.inc" 1
 
@@ -33280,131 +33280,67 @@ ENDM
 
 ; CONFIG10
   CONFIG CP = OFF ; PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
-# 5 "ejercicio_3.s" 2
+# 5 "contador_par.s" 2
 
     PSECT code, reloc = 2, abs
+
  variable1 equ 500H
  variable2 equ 501H
  variable3 equ 502H
- conteo equ 503H
-
- ; NUMEROS ALMACENAMOS EN LA ETIQUETAS NUMEROS PARA NUESTRO PUNTERO
-
- ORG 000F00H
- ; NOTA PERO COMO LAS DIRECCIONES ESTAN EN 3 EN 3 TENGO QUE SUBIR DIRECCION ((PCON0) and 0FFh), 1, a DIRECCION
-
- numeros:
-    db 0x48 ; cuando pones 0x ya no pones el H
-    ORG 00F03H
-    db 0x1C
-    ORG 00F06H
-    db 0x3B
-    ORG 00F09H
-    db 0x29
-    org 00F0CH
-    db 0x6F
-    org 00F0FH
-    db 0x53
-    org 00F12H
-    db 0xAB
-    org 00F15H
-    db 0x4E
-    org 00F18H
-    db 0x1D
-    org 00F1BH
-    db 0xFF
+ valor equ 503H
 
  ORG 0H
  goto configuro
  ORG 20H
 
  configuro:
-    movlb 0H
     movlw 60H
-    movwf OSCCON1, b
-    movlw 04H ; Seleccionamos el oscilador interno de 8MHz
-    movwf OSCFRQ, b
+    movwf OSCCON1, a
+    movlw 02H
+    movwf OSCFRQ, a
     movlw 40H
-    movwf OSCEN, b
+    movwf OSCEN, a
 
-    ;configuracion de pines
-    movlb 04H
-    clrf TRISD, b ; puerto D en salida
-    bsf TRISB, 0, b ; ((PORTB) and 0FFh), 0, a entrada
-
-    clrf ANSELD, b ; digital
-    bcf ANSELB, 0, b ; digital
-
-    clrf LATD, b ; 0v al inicio
+    ; definimos pines, salida,digital
+    clrf ANSELD, a ; digital
+    clrf TRISD, a ; salida
+    clrf LATD, a ; 0v
 
 
-    ; configuramos el valor de la variable conteo
-   ; movlb 5H
-    ;movlw 00000000B
-    ;movwf conteo, b
-
- inicio:
-    ; vamos a la direccion con puntero !
-    movlb 4H
-    btfss PORTB, 0 , b ; boton presionado
-    goto inicio
-
-    movlb 05H
-    movlw 00000000B
-    movwf conteo, b
-
-    ; BANCO DE ACCESO DIRECTO -> CUANDO UTILIZAMOS EL a en vez del b
-    ; con accedes directamente Todos los" SFRs(registro funcion especial) " (F00H a FFFH) ? LATD, TBLPTRL, TABLAT, PORTB,OSCCON1, ANSELD, ETC
-    ; osea sin hacer el movlb , pero si aun asi quieres poner el movlb lo banqueas al banco 0FH, SIMEPRE, SIN IMPORTAR DONDE GUARDAS TUS DATOS
-    ; tambien funciona para La RAM baja (000H a 05FH)
-
-
-    movlw 00H
-    movwf TBLPTRU, a
-    movlw 0FH
-    movwf TBLPTRH, a
-    movlw 00H
-    movwf TBLPTRL, a
-    reproduccion:
-
- TBLRD* ; leemos la informacion que apunta el puntero y subimos a tablat con este comando
- movf TABLAT, w, a
- movlb 04H ;vamos a trabajar con el pin asi que debemos pasar al banco de pines
- movwf LATD, b
- CALL retardo
- ;incrementamos en 3 la direccion
- incf TBLPTRL, f , a
-        incf TBLPTRL , f, a
- incf TBLPTRL, f , a
- movlb 05H
- incf conteo, f, b
- movlw 10 ; numero natural
- cpfseq conteo, b ;
- goto reproduccion
+inicio:
+    movlb 5H
+    clrf valor, b
+    conteo:
+ movlw 2
+ addwf valor, f, a
+ addwf valor, w, a
+ movwf LATD, a
+ call retardo
+ movlw 254
+ cpfseq valor, a
+ goto conteo
  goto inicio
 
 
+retardo:
+; LOS NUMEROS QUE PONGAN EN EL RETARDO TIENEN QUE SER <255 por los 8 bits
+movlw 100
+movwf variable1, b ; en este caso variable 1 dira cuantas vecez se repite todo el bloque interno
 
-    retardo:
- movlw 150 ; cargamos 100 al registro w
- movwf variable1, b ; guardamos el 100 en variable1 banqueado en banco 5 porque a esa direccion pertenece
-    ; este sera mi contador principal
-    xxx:; mas adelante vamos a utilziar goto y vamos a volver.. 1er bucle
- movlw 250
- movwf variable2, b ; 2do bucle
-    yyy:
- movlw 50
- movwf variable3, b ; 3er bucle
-    zzz:
- decfsz variable3, 1,1 ; resta 1 y ese resultado se guarda autoamticament een la variable 3 y cuando llegue a 0 sale del bucle
- goto zzz
-
- decfsz variable2, 1, 1
- goto yyy
-
- decfsz variable1, 1, 1
- goto xxx
-
- return ; regresamos y ejecutamos la linea que sigue, regresamos porque hicimos un call
+xxx:
+movlw 250
+movwf variable2,b ; itera la variable2, 200 vecez
+yyy:
+movlw 5
+movwf variable3, b
+zzz:
+decfsz variable3, 1, 1 ; le vamos a restar uno a la variable 3 y saltara a la siguiente linea cuando el resultado sea 0
+;1,1 -> el variable se guarda en la misma memoria, si fuera 0 se guarda en w , el otro 1 signifca que respeta mi banco
+goto zzz ; el goto nos va a permitir que se siga descontando entrando a un bucle
+decfsz variable2, 1, 1 ; vamos a ir contando al revez, osea 250,249,etc, el decfsz decrementa el valor del registro
+goto yyy
+decfsz variable1, 1,1
+goto xxx
+return ; damos por finalizado el retardo y volvemo a donde al retado
 
     end

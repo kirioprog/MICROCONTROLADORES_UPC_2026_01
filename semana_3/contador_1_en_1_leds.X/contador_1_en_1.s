@@ -1,7 +1,7 @@
 PROCESSOR 18F57Q43
     #include<xc.inc>
     #include<pic18f57q43.inc>
-    #include "cabecera.inc>
+    #include "cabecera.inc"
     PSECT code, reloc=2, abs 
  
  variable1 equ 500H ; vamos a reemplazar estas direcciones en el banco 5 por dichos nombres
@@ -16,14 +16,14 @@ PROCESSOR 18F57Q43
     movlw 60H
     movwf OSCCON1, b 
     movlw 2H
-    movwf OSFRQ,b 
+    movwf OSCFRQ,b 
     movlw 40H
     movwf OSCEN, b 
     
     ; VAMOS A CONFIGURAR LOS PINES QUE VAMOS A UTLIZAR 
     movlb 4H ; nos vamos al banco 4  porque aqui estan los registros que controlan  los pines
     clrf TRISD,b ; 0 salida, 1 entrada ) 
-    clrf ANSELD, b ( 0 digital, 1 analogico) 
+    clrf ANSELD, b ;( 0 digital, 1 analogico) 
     clrf LATD, b 
     
  inicio: 
@@ -55,8 +55,5 @@ PROCESSOR 18F57Q43
     return  ; damos por finalizado el retardo y volvemo a donde al retado 
     
     end 
-    
-    
-    
 
 

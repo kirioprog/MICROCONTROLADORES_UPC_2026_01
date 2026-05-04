@@ -1,10 +1,10 @@
-# 1 "ejercicio_3.s"
+# 1 "contador_1_en_1.s"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 296 "<built-in>" 3
 # 1 "<command line>" 1
 # 1 "<built-in>" 2
-# 1 "ejercicio_3.s" 2
+# 1 "contador_1_en_1.s" 2
 PROCESSOR 18F57Q43
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 1 3
 
@@ -33223,7 +33223,7 @@ stk_offset SET 0
 auto_size SET 0
 ENDM
 # 6 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 2 3
-# 3 "ejercicio_3.s" 2
+# 3 "contador_1_en_1.s" 2
 
 # 1 "./cabecera.inc" 1
 
@@ -33280,131 +33280,57 @@ ENDM
 
 ; CONFIG10
   CONFIG CP = OFF ; PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
-# 5 "ejercicio_3.s" 2
+# 5 "contador_1_en_1.s" 2
+ PSECT code, reloc=2, abs
 
-    PSECT code, reloc = 2, abs
- variable1 equ 500H
+ variable1 equ 500H ; vamos a reemplazar estas direcciones en el banco 5 por dichos nombres
  variable2 equ 501H
  variable3 equ 502H
- conteo equ 503H
 
- ; NUMEROS ALMACENAMOS EN LA ETIQUETAS NUMEROS PARA NUESTRO PUNTERO
-
- ORG 000F00H
- ; NOTA PERO COMO LAS DIRECCIONES ESTAN EN 3 EN 3 TENGO QUE SUBIR DIRECCION ((PCON0) and 0FFh), 1, a DIRECCION
-
- numeros:
-    db 0x48 ; cuando pones 0x ya no pones el H
-    ORG 00F03H
-    db 0x1C
-    ORG 00F06H
-    db 0x3B
-    ORG 00F09H
-    db 0x29
-    org 00F0CH
-    db 0x6F
-    org 00F0FH
-    db 0x53
-    org 00F12H
-    db 0xAB
-    org 00F15H
-    db 0x4E
-    org 00F18H
-    db 0x1D
-    org 00F1BH
-    db 0xFF
-
- ORG 0H
+ ORG 0
  goto configuro
- ORG 20H
-
+ ORG 20
  configuro:
-    movlb 0H
+    movlb 0H ; nos vamos al banco 0 por los registros del oscilador (VAMOS A UTIILZAR OSCILADOR INTERNO)
     movlw 60H
     movwf OSCCON1, b
-    movlw 04H ; Seleccionamos el oscilador interno de 8MHz
-    movwf OSCFRQ, b
+    movlw 2H
+    movwf OSCFRQ,b
     movlw 40H
     movwf OSCEN, b
 
-    ;configuracion de pines
-    movlb 04H
-    clrf TRISD, b ; puerto D en salida
-    bsf TRISB, 0, b ; ((PORTB) and 0FFh), 0, a entrada
-
-    clrf ANSELD, b ; digital
-    bcf ANSELB, 0, b ; digital
-
-    clrf LATD, b ; 0v al inicio
-
-
-    ; configuramos el valor de la variable conteo
-   ; movlb 5H
-    ;movlw 00000000B
-    ;movwf conteo, b
+    ; VAMOS A CONFIGURAR LOS PINES QUE VAMOS A UTLIZAR
+    movlb 4H ; nos vamos al banco 4 porque aqui estan los registros que controlan los pines
+    clrf TRISD,b ; 0 salida, 1 entrada )
+    clrf ANSELD, b ;( 0 digital, 1 analogico)
+    clrf LATD, b
 
  inicio:
-    ; vamos a la direccion con puntero !
-    movlb 4H
-    btfss PORTB, 0 , b ; boton presionado
-    goto inicio
+    incf LATD, b ; vamos a sumar 1 al valor actual que hay en el puerto D , banqueamos al banco 4( ahi definimos los pines)
+    ;el incf lo que hace es incrementar
+    ; recuerda que pusimos todos nuestros pines en 0 osea el numero seria 0000 0001, si le aumentamos en 1 etc..
+    call retardo ; vamos a retardo y luego regresamos
+    goto inicio ; asi nos encerramos en el bucle..
 
-    movlb 05H
-    movlw 00000000B
-    movwf conteo, b
+  retardo:
+    ; LOS NUMEROS QUE PONGAN EN EL RETARDO TIENEN QUE SER <255 por los 8 bits
+    movlw 100
+    movwf variable1, b ; en este caso variable 1 dira cuantas vecez se repite todo el bloque interno
 
-    ; BANCO DE ACCESO DIRECTO -> CUANDO UTILIZAMOS EL a en vez del b
-    ; con accedes directamente Todos los" SFRs(registro funcion especial) " (F00H a FFFH) ? LATD, TBLPTRL, TABLAT, PORTB,OSCCON1, ANSELD, ETC
-    ; osea sin hacer el movlb , pero si aun asi quieres poner el movlb lo banqueas al banco 0FH, SIMEPRE, SIN IMPORTAR DONDE GUARDAS TUS DATOS
-    ; tambien funciona para La RAM baja (000H a 05FH)
-
-
-    movlw 00H
-    movwf TBLPTRU, a
-    movlw 0FH
-    movwf TBLPTRH, a
-    movlw 00H
-    movwf TBLPTRL, a
-    reproduccion:
-
- TBLRD* ; leemos la informacion que apunta el puntero y subimos a tablat con este comando
- movf TABLAT, w, a
- movlb 04H ;vamos a trabajar con el pin asi que debemos pasar al banco de pines
- movwf LATD, b
- CALL retardo
- ;incrementamos en 3 la direccion
- incf TBLPTRL, f , a
-        incf TBLPTRL , f, a
- incf TBLPTRL, f , a
- movlb 05H
- incf conteo, f, b
- movlw 10 ; numero natural
- cpfseq conteo, b ;
- goto reproduccion
- goto inicio
-
-
-
-    retardo:
- movlw 150 ; cargamos 100 al registro w
- movwf variable1, b ; guardamos el 100 en variable1 banqueado en banco 5 porque a esa direccion pertenece
-    ; este sera mi contador principal
-    xxx:; mas adelante vamos a utilziar goto y vamos a volver.. 1er bucle
- movlw 250
- movwf variable2, b ; 2do bucle
+    xxx:
+    movlw 250
+    movwf variable2,b ; itera la variable2, 200 vecez
     yyy:
- movlw 50
- movwf variable3, b ; 3er bucle
+    movlw 5
+    movwf variable3, b
     zzz:
- decfsz variable3, 1,1 ; resta 1 y ese resultado se guarda autoamticament een la variable 3 y cuando llegue a 0 sale del bucle
- goto zzz
-
- decfsz variable2, 1, 1
- goto yyy
-
- decfsz variable1, 1, 1
- goto xxx
-
- return ; regresamos y ejecutamos la linea que sigue, regresamos porque hicimos un call
+    decfsz variable3, 1, 1 ; le vamos a restar uno a la variable 3 y saltara a la siguiente linea cuando el resultado sea 0
+    ;1,1 -> el variable se guarda en la misma memoria, si fuera 0 se guarda en w , el otro 1 signifca que respeta mi banco
+    goto zzz ; el goto nos va a permitir que se siga descontando entrando a un bucle
+    decfsz variable2, 1, 1 ; vamos a ir contando al revez, osea 250,249,etc, el decfsz decrementa el valor del registro
+    goto yyy
+    decfsz variable1, 1,1
+    goto xxx
+    return ; damos por finalizado el retardo y volvemo a donde al retado
 
     end
