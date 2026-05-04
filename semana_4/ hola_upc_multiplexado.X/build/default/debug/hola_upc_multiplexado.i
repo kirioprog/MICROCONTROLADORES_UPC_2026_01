@@ -1,10 +1,10 @@
-# 1 "contador_par.s"
+# 1 "hola_upc_multiplexado.s"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 296 "<built-in>" 3
 # 1 "<command line>" 1
 # 1 "<built-in>" 2
-# 1 "contador_par.s" 2
+# 1 "hola_upc_multiplexado.s" 2
 PROCESSOR 18F57Q43
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 1 3
 
@@ -33223,7 +33223,7 @@ stk_offset SET 0
 auto_size SET 0
 ENDM
 # 6 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 2 3
-# 3 "contador_par.s" 2
+# 3 "hola_upc_multiplexado.s" 2
 
 # 1 "./cabecera.inc" 1
 
@@ -33280,67 +33280,120 @@ ENDM
 
 ; CONFIG10
   CONFIG CP = OFF ; PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
-# 5 "contador_par.s" 2
+# 5 "hola_upc_multiplexado.s" 2
 
-    PSECT code, reloc = 2, abs
+    ;#define_XTAL_FREQ 4000000UL ; definimos una frecuenica de 4MHZ / Sirve para utilzar delay
+    PSECT code, reloc = 2 , abs
 
  variable1 equ 500H
  variable2 equ 501H
- variable3 equ 502H
- valor equ 503H
+ descontar equ 502H
+
+
+ ORG 000300H
+ mensaje1 : db 76H, 3FH, 38H, 77H ; con puntero almacenamos la palabra HOLA
+
+ ORG 000400H
+ mensaje2 : db 00H, 3EH, 73H, 39H ; con puntero almacenamos la palabra UPC
 
  ORG 0H
  goto configuro
  ORG 20H
 
  configuro:
+    movlb 00H
     movlw 60H
-    movwf OSCCON1, a
+    movwf OSCCON1, b
     movlw 02H
-    movwf OSCFRQ, a
+    movwf OSCFRQ, b
     movlw 40H
-    movwf OSCEN, a
+    movwf OSCEN, b
 
-    ; definimos pines, salida,digital
-    clrf ANSELD, a ; digital
-    clrf TRISD, a ; salida
-    clrf LATD, a ; 0v
+    ; pines del display 8 pines
+    movlb 04H
+    clrf TRISD, b ; salida PUERTO D
+    clrf ANSELD, b ; digital PUERTO D
+    clrf LATD, b ; salida empieza en 0v
 
+    ; seleccionamos el mensaje a salir HOLA o MUNDO
+    bsf TRISA,0, b ; entrada ((PORTA) and 0FFh), 0, a
+    bcf ANSELA,0 , b ; digital ((PORTA) and 0FFh), 0, a
+
+    ; PIN QUE CONTROLA EL SELECTOR DEL MULTIPLEXOR
+    movlw 11110000B ; -> B7 - B0
+    movwf TRISB, b ; B0-B3 salida
+    clrf ANSELB, b ; digital
+    clrf LATB, b ; empieza en 0v
 
 inicio:
-    movlb 5H
-    clrf valor, b
-    conteo:
- movlw 2
- addwf valor, f, a
- addwf valor, w, a
- movwf LATD, a
+    btfss PORTA,0 ; cuando activamos el interruptor pasamos a upc , asi que al inicio empieza con hola automaticamente
+    goto hola
+    goto upc
+
+    hola:
+ clrf TBLPTRU, a ; en vez de hacer el movwf 00H y luego el movwf como todo es 0 pasamos degrente con el clrf
+ movlw 03H
+ movwf TBLPTRH, a
+ clrf TBLPTRL, a
+ goto multiplexor
+
+    upc:
+ clrf TBLPTRU, a
+ movlw 04H
+ movwf TBLPTRH, a
+ clrf TBLPTRL, a
+ goto multiplexor
+
+    multiplexor:
+ TBLRD*+ ; LEEMOS LOS DATOS A LOS QUE APUNTAMOS TBLPTR ->pasamos al registro TABLAT -> incrementamos el TBLPTR en 1
+ ; osea ya no hacemos el incf
+ ; OJO: TAMBIEN LO PUEDES HACER CON -
+ movff TABLAT, LATD ; copiamos el vlaor de tablat a latd
+ bsf LATB, 3, b ; ASI IMPRIMIMOS EL PIN EN LA POSICION DESCONTAR
+
+ ; pasamos al banco 5 porque recurda que ahi esta nuestra variable1 variable2
+ movlb 05H
  call retardo
- movlw 254
- cpfseq valor, a
- goto conteo
+ movlb 04H
+ bcf LATB,3, b
+
+ TBLRD*+
+ movff TABLAT, LATD
+ bsf LATB, 2, b
+ movlb 05H
+ call retardo
+ movlb 04H
+ bcf LATB,2, b
+
+ TBLRD*+
+ movff TABLAT, LATD
+ bsf LATB, 1, b
+ movlb 05H
+ call retardo
+ movlb 04H
+ bcf LATB,1, b
+
+
+ TBLRD*+
+ movff TABLAT, LATD
+ bsf LATB, 0, b
+ movlb 05H
+ call retardo
+ movlb 04H
+ bcf LATB,0, b
  goto inicio
 
+    retardo:
+ movlw 3
+ movwf variable1, b
+    xxx:
+ movlw 110
+ movwf variable2, b
+    yyy:
+ decfsz variable2, 1, 1
+ goto yyy
+ decfsz variable1, 1, 1
+ goto xxx
+ return
 
-retardo:
-; LOS NUMEROS QUE PONGAN EN EL RETARDO TIENEN QUE SER <255 por los 8 bits
-movlw 100
-movwf variable1, b ; en este caso variable 1 dira cuantas vecez se repite todo el bloque interno
-
-xxx:
-movlw 250
-movwf variable2,b ; itera la variable2, 200 vecez
-yyy:
-movlw 5
-movwf variable3, b
-zzz:
-decfsz variable3, 1, 1 ; le vamos a restar uno a la variable 3 y saltara a la siguiente linea cuando el resultado sea 0
-;1,1 -> el variable se guarda en la misma memoria, si fuera 0 se guarda en w , el otro 1 signifca que respeta mi banco
-goto zzz ; el goto nos va a permitir que se siga descontando entrando a un bucle
-decfsz variable2, 1, 1 ; vamos a ir contando al revez, osea 250,249,etc, el decfsz decrementa el valor del registro
-goto yyy
-decfsz variable1, 1,1
-goto xxx
-return ; damos por finalizado el retardo y volvemo a donde al retado
-
-    end
+ end
