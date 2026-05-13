@@ -1,10 +1,10 @@
-# 1 "hola_upc_multiplexado.s"
+# 1 "versiculo_multiplexado.s"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 296 "<built-in>" 3
 # 1 "<command line>" 1
 # 1 "<built-in>" 2
-# 1 "hola_upc_multiplexado.s" 2
+# 1 "versiculo_multiplexado.s" 2
 PROCESSOR 18F57Q43
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 1 3
 
@@ -33223,7 +33223,7 @@ stk_offset SET 0
 auto_size SET 0
 ENDM
 # 6 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 2 3
-# 3 "hola_upc_multiplexado.s" 2
+# 3 "versiculo_multiplexado.s" 2
 
 # 1 "./cabecera.inc" 1
 
@@ -33280,27 +33280,50 @@ ENDM
 
 ; CONFIG10
   CONFIG CP = OFF ; PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
-# 5 "hola_upc_multiplexado.s" 2
+# 5 "versiculo_multiplexado.s" 2
 
-    ;#define_XTAL_FREQ 4000000UL ; definimos una frecuenica de 4MHZ / Sirve para utilzar delay
     PSECT code, reloc = 2 , abs
 
  variable1 equ 500H
  variable2 equ 501H
- descontar equ 502H
+ valor equ 505H
 
-
+ ; ROM 8:28 - "TODO OBRA PARA BIEN DE LOS QUE AMAN A DIOS"
  ORG 000300H
- mensaje1 : db 76H, 3FH, 38H, 77H ; con puntero almacenamos la palabra HOLA
+ msg_TODO: db 78H, 3FH, 5EH, 3FH ; TODO
 
- ORG 000400H
- mensaje2 : db 00H, 3EH, 73H, 39H ; con puntero almacenamos la palabra UPC
+ ORG 000310H
+ msg_OBRA: db 3FH, 7CH, 50H, 77H ; OBRA
+
+ ORG 000320H
+ msg_PARA: db 73H, 77H, 50H, 77H ; PARA
+
+ ORG 000330H
+ msg_BIEN: db 7CH, 06H, 79H, 37H ; BIEN
+
+ ORG 000340H
+ msg_DE: db 00H, 00H, 5EH, 79H ; _ _ D E
+
+ ORG 000350H
+ msg_LOS: db 00H, 38H, 3FH, 6DH ; _ L O S
+
+ ORG 000360H
+ msg_QUE: db 00H, 67H, 3EH, 79H ; _ Q U E
+
+ ORG 000370H
+ msg_AMAN: db 77H, 55H, 77H, 37H ; AMAN
+
+ ORG 000380H
+ msg_A: db 00H, 00H, 00H, 77H ; _ _ _ A
+
+ ORG 000390H
+ msg_DIOS: db 5EH, 06H, 3FH, 6DH ; DIOS
 
  ORG 0H
  goto configuro
  ORG 20H
 
- configuro:
+configuro:
     movlb 00H
     movlw 60H
     movwf OSCCON1, b
@@ -33309,91 +33332,224 @@ ENDM
     movlw 40H
     movwf OSCEN, b
 
-    ; pines del display 8 pines
     movlb 04H
-    clrf TRISD, b ; salida PUERTO D
-    clrf ANSELD, b ; digital PUERTO D
-    clrf LATD, b ; salida empieza en 0v
+    clrf TRISD, b
+    clrf ANSELD, b
+    clrf LATD, b
 
-    ; seleccionamos el mensaje a salir HOLA o MUNDO
-    bsf TRISA,0, b ; entrada ((PORTA) and 0FFh), 0, a
-    bcf ANSELA,0 , b ; digital ((PORTA) and 0FFh), 0, a
-
-    ; PIN QUE CONTROLA EL SELECTOR DEL MULTIPLEXOR/ los transistores
-    movlw 11110000B ; -> B7 - B0
-    movwf TRISB, b ; B0-B3 salida
-    clrf ANSELB, b ; digital
-    clrf LATB, b ; empieza en 0v
+    movlw 11110000B
+    movwf TRISB, b
+    clrf ANSELB, b
+    clrf LATB, b
 
 inicio:
-    btfss PORTA,0 ; cuando activamos el interruptor pasamos a upc , asi que al inicio empieza con hola automaticamente
-    goto hola
-    goto upc
+    movlb 05H
+    clrf valor, b
 
-    hola:
- clrf TBLPTRU, a ; en vez de hacer el movwf 00H y luego el movwf como todo es 0 pasamos degrente con el clrf
- movlw 03H
- movwf TBLPTRH, a
- clrf TBLPTRL, a
- goto multiplexor
+    ; --- TODO ---
+w_TODO:
+    clrf TBLPTRU, a
+    movlw 03H
+    movwf TBLPTRH, a
+    movlw 00H
+    movwf TBLPTRL, a
+    call multiplexor
+    movlb 05H
+    incf valor, f, b
+    movlw 250
+    cpfseq valor, b
+    goto w_TODO
+    movlb 05H
+    clrf valor, b
 
-    upc:
- clrf TBLPTRU, a
- movlw 04H
- movwf TBLPTRH, a
- clrf TBLPTRL, a
- goto multiplexor
+    ; --- OBRA ---
+w_OBRA:
+    clrf TBLPTRU, a
+    movlw 03H
+    movwf TBLPTRH, a
+    movlw 10H
+    movwf TBLPTRL, a
+    call multiplexor
+    movlb 05H
+    incf valor, f, b
+    movlw 250
+    cpfseq valor, b
+    goto w_OBRA
+    movlb 05H
+    clrf valor, b
 
-    multiplexor:
- TBLRD*+ ; LEEMOS LOS DATOS A LOS QUE APUNTAMOS TBLPTR ->pasamos al registro TABLAT -> incrementamos el TBLPTR en 1
- ; osea ya no hacemos el incf
- ; OJO: TAMBIEN LO PUEDES HACER CON -
- movff TABLAT, LATD ; copiamos el vlaor de tablat a latd
- bsf LATB, 3, b ; ASI IMPRIMIMOS EL PIN EN LA POSICION DESCONTAR
+    ; --- PARA ---
+w_PARA:
+    clrf TBLPTRU, a
+    movlw 03H
+    movwf TBLPTRH, a
+    movlw 20H
+    movwf TBLPTRL, a
+    call multiplexor
+    movlb 05H
+    incf valor, f, b
+    movlw 250
+    cpfseq valor, b
+    goto w_PARA
+    movlb 05H
+    clrf valor, b
 
- ; pasamos al banco 5 porque recurda que ahi esta nuestra variable1 variable2
- movlb 05H
- call retardo
- movlb 04H
- bcf LATB,3, b
+    ; --- BIEN ---
+w_BIEN:
+    clrf TBLPTRU, a
+    movlw 03H
+    movwf TBLPTRH, a
+    movlw 30H
+    movwf TBLPTRL, a
+    call multiplexor
+    movlb 05H
+    incf valor, f, b
+    movlw 250
+    cpfseq valor, b
+    goto w_BIEN
+    movlb 05H
+    clrf valor, b
 
- TBLRD*+
- movff TABLAT, LATD
- bsf LATB, 2, b
- movlb 05H
- call retardo
- movlb 04H
- bcf LATB,2, b
+    ; --- DE ---
+w_DE:
+    clrf TBLPTRU, a
+    movlw 03H
+    movwf TBLPTRH, a
+    movlw 40H
+    movwf TBLPTRL, a
+    call multiplexor
+    movlb 05H
+    incf valor, f, b
+    movlw 250
+    cpfseq valor, b
+    goto w_DE
+    movlb 05H
+    clrf valor, b
 
- TBLRD*+
- movff TABLAT, LATD
- bsf LATB, 1, b
- movlb 05H
- call retardo
- movlb 04H
- bcf LATB,1, b
+    ; --- LOS ---
+w_LOS:
+    clrf TBLPTRU, a
+    movlw 03H
+    movwf TBLPTRH, a
+    movlw 50H
+    movwf TBLPTRL, a
+    call multiplexor
+    movlb 05H
+    incf valor, f, b
+    movlw 250
+    cpfseq valor, b
+    goto w_LOS
+    movlb 05H
+    clrf valor, b
 
+    ; --- QUE ---
+w_QUE:
+    clrf TBLPTRU, a
+    movlw 03H
+    movwf TBLPTRH, a
+    movlw 60H
+    movwf TBLPTRL, a
+    call multiplexor
+    movlb 05H
+    incf valor, f, b
+    movlw 250
+    cpfseq valor, b
+    goto w_QUE
+    movlb 05H
+    clrf valor, b
 
- TBLRD*+
- movff TABLAT, LATD
- bsf LATB, 0, b
- movlb 05H
- call retardo
- movlb 04H
- bcf LATB,0, b
- goto inicio
+    ; --- AMAN ---
+w_AMAN:
+    clrf TBLPTRU, a
+    movlw 03H
+    movwf TBLPTRH, a
+    movlw 70H
+    movwf TBLPTRL, a
+    call multiplexor
+    movlb 05H
+    incf valor, f, b
+    movlw 250
+    cpfseq valor, b
+    goto w_AMAN
+    movlb 05H
+    clrf valor, b
 
-    retardo:
- movlw 3
- movwf variable1, b
-    xxx:
- movlw 110
- movwf variable2, b
-    yyy:
- decfsz variable2, 1, 1
- goto yyy
- decfsz variable1, 1, 1
- goto xxx
- return
+    ; --- A ---
+w_A:
+    clrf TBLPTRU, a
+    movlw 03H
+    movwf TBLPTRH, a
+    movlw 80H
+    movwf TBLPTRL, a
+    call multiplexor
+    movlb 05H
+    incf valor, f, b
+    movlw 250
+    cpfseq valor, b
+    goto w_A
+    movlb 05H
+    clrf valor, b
 
- end
+    ; --- DIOS ---
+w_DIOS:
+    clrf TBLPTRU, a
+    movlw 03H
+    movwf TBLPTRH, a
+    movlw 90H
+    movwf TBLPTRL, a
+    call multiplexor
+    movlb 05H
+    incf valor, f, b
+    movlw 250
+    cpfseq valor, b
+    goto w_DIOS
+
+    goto inicio ; loop infinito, vuelve a TODO
+
+multiplexor:
+    movlb 04H
+    TBLRD*+
+    movff TABLAT, LATD
+    bsf LATB, 3, b
+    movlb 05H
+    call retardo
+    movlb 04H
+    bcf LATB, 3, b
+    TBLRD*+
+    movff TABLAT, LATD
+    bsf LATB, 2, b
+    movlb 05H
+    call retardo
+    movlb 04H
+    bcf LATB, 2, b
+    TBLRD*+
+    movff TABLAT, LATD
+    bsf LATB, 1, b
+    movlb 05H
+    call retardo
+    movlb 04H
+    bcf LATB, 1, b
+    TBLRD*+
+    movff TABLAT, LATD
+    bsf LATB, 0, b
+    movlb 05H
+    call retardo
+    movlb 04H
+    bcf LATB, 0, b
+    return
+
+retardo:
+    movlb 05H
+    movlw 7
+    movwf variable1, b
+mmm:
+    movlw 50
+    movwf variable2, b
+nnn:
+    decfsz variable2, 1, 1
+    goto nnn
+    decfsz variable1, 1, 1
+    goto mmm
+    return
+
+    end

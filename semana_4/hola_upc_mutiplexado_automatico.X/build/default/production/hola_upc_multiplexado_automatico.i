@@ -1,10 +1,10 @@
-# 1 "hola_upc_multiplexado.s"
+# 1 "hola_upc_multiplexado_automatico.s"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 296 "<built-in>" 3
 # 1 "<command line>" 1
 # 1 "<built-in>" 2
-# 1 "hola_upc_multiplexado.s" 2
+# 1 "hola_upc_multiplexado_automatico.s" 2
 PROCESSOR 18F57Q43
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 1 3
 
@@ -33223,7 +33223,7 @@ stk_offset SET 0
 auto_size SET 0
 ENDM
 # 6 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 2 3
-# 3 "hola_upc_multiplexado.s" 2
+# 3 "hola_upc_multiplexado_automatico.s" 2
 
 # 1 "./cabecera.inc" 1
 
@@ -33280,14 +33280,16 @@ ENDM
 
 ; CONFIG10
   CONFIG CP = OFF ; PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
-# 5 "hola_upc_multiplexado.s" 2
+# 5 "hola_upc_multiplexado_automatico.s" 2
 
-    ;#define_XTAL_FREQ 4000000UL ; definimos una frecuenica de 4MHZ / Sirve para utilzar delay
+    ;define_XTAL_FREQ 4000000UL ; definimos una frecuenica de 4MHZ / Sirve para utilzar delay
     PSECT code, reloc = 2 , abs
-
+ ; retardo
  variable1 equ 500H
  variable2 equ 501H
- descontar equ 502H
+ ; retardo2
+
+ valor equ 505H
 
 
  ORG 000300H
@@ -33295,6 +33297,7 @@ ENDM
 
  ORG 000400H
  mensaje2 : db 00H, 3EH, 73H, 39H ; con puntero almacenamos la palabra UPC
+
 
  ORG 0H
  goto configuro
@@ -33315,47 +33318,63 @@ ENDM
     clrf ANSELD, b ; digital PUERTO D
     clrf LATD, b ; salida empieza en 0v
 
-    ; seleccionamos el mensaje a salir HOLA o MUNDO
-    bsf TRISA,0, b ; entrada ((PORTA) and 0FFh), 0, a
-    bcf ANSELA,0 , b ; digital ((PORTA) and 0FFh), 0, a
 
-    ; PIN QUE CONTROLA EL SELECTOR DEL MULTIPLEXOR/ los transistores
+    ; PIN QUE CONTROLA EL SELECTOR DEL MULTIPLEXOR/ los transistores / 4 DISPLAY
     movlw 11110000B ; -> B7 - B0
     movwf TRISB, b ; B0-B3 salida
     clrf ANSELB, b ; digital
     clrf LATB, b ; empieza en 0v
 
 inicio:
-    btfss PORTA,0 ; cuando activamos el interruptor pasamos a upc , asi que al inicio empieza con hola automaticamente
+    movlb 05H
+    clrf valor, b
     goto hola
-    goto upc
+
 
     hola:
  clrf TBLPTRU, a ; en vez de hacer el movwf 00H y luego el movwf como todo es 0 pasamos degrente con el clrf
  movlw 03H
  movwf TBLPTRH, a
  clrf TBLPTRL, a
- goto multiplexor
+ call multiplexor
+
+ movlb 05H
+ incf valor, f, b
+ movlw 250
+ cpfseq valor, b
+ goto hola
+ goto arreglar_contador
+
+    arreglar_contador:
+ movlb 05H
+ clrf valor, b
+ goto upc
 
     upc:
  clrf TBLPTRU, a
  movlw 04H
  movwf TBLPTRH, a
  clrf TBLPTRL, a
- goto multiplexor
+ call multiplexor
+ movlb 05H
+ incf valor, f, b
+ movlw 250
+ cpfseq valor, b
+ goto upc
+ goto inicio
 
     multiplexor:
  TBLRD*+ ; LEEMOS LOS DATOS A LOS QUE APUNTAMOS TBLPTR ->pasamos al registro TABLAT -> incrementamos el TBLPTR en 1
  ; osea ya no hacemos el incf
  ; OJO: TAMBIEN LO PUEDES HACER CON -
  movff TABLAT, LATD ; copiamos el vlaor de tablat a latd
- bsf LATB, 3, b ; ASI IMPRIMIMOS EL PIN EN LA POSICION DESCONTAR
+ bsf LATB, 3, a ; ASI IMPRIMIMOS EL PIN EN LA POSICION DESCONTAR
 
  ; pasamos al banco 5 porque recurda que ahi esta nuestra variable1 variable2
  movlb 05H
  call retardo
  movlb 04H
- bcf LATB,3, b
+ bcf LATB,3, a
 
  TBLRD*+
  movff TABLAT, LATD
@@ -33381,19 +33400,24 @@ inicio:
  call retardo
  movlb 04H
  bcf LATB,0, b
- goto inicio
+ return
+
+
 
     retardo:
- movlw 3
+    movlb 05H
+ movlw 10
  movwf variable1, b
-    xxx:
+    mmm:
  movlw 110
  movwf variable2, b
-    yyy:
+    nnn:
  decfsz variable2, 1, 1
- goto yyy
+ goto nnn
  decfsz variable1, 1, 1
- goto xxx
+ goto mmm
  return
+
+
 
  end

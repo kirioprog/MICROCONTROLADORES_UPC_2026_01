@@ -1,0 +1,416 @@
+%CMF
+# %PSECTS Section
+# For each object file, details of its psects are enumerated here.
+# The begining of the section is indicated by %PSECTS.  The first
+# line indicates the name of the first object file, e.g.
+#    $foo.obj
+# Each line that follows describes a psect in that object file, until
+# the next object file.  The lines that describe a psect have the
+# format:
+#    <psect name> <class name> <space> <link address> <load addresses> <length> <delta> <reloc>
+# All addresses and the length are given in unqualified hexadecimal
+# in delta units.  Any other numeric values are decimal.
+%PSECTS
+$build/default/production/versiculo_multiplexado.o
+code CODE 0 0 0 394 1 2
+config CONFIG 4 300000 300000 A 1 1
+# %UNUSED Section
+# This section enumerates the unused ranges of each CLASS. Each entry
+# is described on a single line as follows:
+#    <class name> <range> <delta>
+# Addresses given in the range are in hexadecimal and units of delta.
+%UNUSED
+RAM 560-24FF 1
+SFR 394-4FF 1
+SFR 2500-25FF 1
+BANK5 560-5FF 1
+BANK6 600-6FF 1
+BANK7 700-7FF 1
+BANK8 800-8FF 1
+BANK9 900-9FF 1
+CONST 394-1FFFF 1
+IDLOC 200000-20003F 1
+SMALLCONST 2600-FFFF 1
+SMALLCONST 12600-1FFFF 1
+CODE 394-1FFFF 1
+BANK10 A00-AFF 1
+BANK11 B00-BFF 1
+BANK12 C00-CFF 1
+BANK13 D00-DFF 1
+BANK14 E00-EFF 1
+BANK15 F00-FFF 1
+BANK16 1000-10FF 1
+BANK17 1100-11FF 1
+BANK18 1200-12FF 1
+BANK19 1300-13FF 1
+BANK20 1400-14FF 1
+BANK21 1500-15FF 1
+BANK22 1600-16FF 1
+BANK23 1700-17FF 1
+BANK24 1800-18FF 1
+BANK25 1900-19FF 1
+BANK26 1A00-1AFF 1
+BANK27 1B00-1BFF 1
+BANK28 1C00-1CFF 1
+BANK29 1D00-1DFF 1
+BANK30 1E00-1EFF 1
+BANK31 1F00-1FFF 1
+BANK32 2000-20FF 1
+BANK33 2100-21FF 1
+BANK34 2200-22FF 1
+BANK35 2300-23FF 1
+BANK36 2400-24FF 1
+BIGRAM 500-24FF 1
+BIGSFR 394-4FF 1
+BIGSFR 2500-25FF 1
+COMRAM 500-55F 1
+CONFIG 30000A-300011 1
+EEDATA 380000-3803FF 1
+MEDIUMCONST 2600-FFFF 1
+MEDIUMCONST 12600-1FFFF 1
+# %LINETAB Section
+# This section enumerates the file/line to address mappings.
+# The beginning of the section is indicated by %LINETAB.
+# The first line indicates the name of the first object file, e.g.
+#   $foo.obj
+# Each line that follows describes a single mapping until the next
+# object file.  Mappings have the following format:
+#    <address> <psect name> <class name> ><line number>:<file name>
+# The address is absolute and given given in unqualified hex 
+# in delta units of the psect. All mappings within an object file
+# are in ascending order of addresses.
+# All other numeric values are in decimal.
+%LINETAB
+$build/default/production/versiculo_multiplexado.o
+0 code CODE >44:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+20 code CODE >48:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+22 code CODE >49:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+24 code CODE >50:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+26 code CODE >51:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+28 code CODE >52:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+2A code CODE >53:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+2C code CODE >54:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+2E code CODE >56:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+30 code CODE >57:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+32 code CODE >58:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+34 code CODE >59:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+36 code CODE >61:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+38 code CODE >62:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+3A code CODE >63:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+3C code CODE >64:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+3E code CODE >67:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+40 code CODE >68:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+42 code CODE >72:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+44 code CODE >73:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+46 code CODE >74:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+48 code CODE >75:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+4A code CODE >76:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+4C code CODE >77:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+50 code CODE >78:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+52 code CODE >79:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+54 code CODE >80:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+56 code CODE >81:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+58 code CODE >82:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+5C code CODE >83:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+5E code CODE >84:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+60 code CODE >88:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+62 code CODE >89:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+64 code CODE >90:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+66 code CODE >91:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+68 code CODE >92:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+6A code CODE >93:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+6E code CODE >94:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+70 code CODE >95:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+72 code CODE >96:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+74 code CODE >97:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+76 code CODE >98:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+7A code CODE >99:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+7C code CODE >100:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+7E code CODE >104:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+80 code CODE >105:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+82 code CODE >106:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+84 code CODE >107:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+86 code CODE >108:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+88 code CODE >109:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+8C code CODE >110:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+8E code CODE >111:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+90 code CODE >112:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+92 code CODE >113:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+94 code CODE >114:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+98 code CODE >115:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+9A code CODE >116:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+9C code CODE >120:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+9E code CODE >121:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+A0 code CODE >122:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+A2 code CODE >123:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+A4 code CODE >124:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+A6 code CODE >125:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+AA code CODE >126:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+AC code CODE >127:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+AE code CODE >128:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+B0 code CODE >129:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+B2 code CODE >130:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+B6 code CODE >131:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+B8 code CODE >132:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+BA code CODE >136:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+BC code CODE >137:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+BE code CODE >138:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+C0 code CODE >139:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+C2 code CODE >140:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+C4 code CODE >141:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+C8 code CODE >142:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+CA code CODE >143:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+CC code CODE >144:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+CE code CODE >145:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+D0 code CODE >146:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+D4 code CODE >147:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+D6 code CODE >148:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+D8 code CODE >152:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+DA code CODE >153:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+DC code CODE >154:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+DE code CODE >155:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+E0 code CODE >156:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+E2 code CODE >157:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+E6 code CODE >158:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+E8 code CODE >159:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+EA code CODE >160:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+EC code CODE >161:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+EE code CODE >162:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+F2 code CODE >163:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+F4 code CODE >164:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+F6 code CODE >168:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+F8 code CODE >169:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+FA code CODE >170:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+FC code CODE >171:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+FE code CODE >172:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+100 code CODE >173:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+104 code CODE >174:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+106 code CODE >175:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+108 code CODE >176:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+10A code CODE >177:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+10C code CODE >178:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+110 code CODE >179:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+112 code CODE >180:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+114 code CODE >184:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+116 code CODE >185:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+118 code CODE >186:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+11A code CODE >187:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+11C code CODE >188:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+11E code CODE >189:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+122 code CODE >190:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+124 code CODE >191:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+126 code CODE >192:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+128 code CODE >193:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+12A code CODE >194:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+12E code CODE >195:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+130 code CODE >196:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+132 code CODE >200:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+134 code CODE >201:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+136 code CODE >202:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+138 code CODE >203:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+13A code CODE >204:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+13C code CODE >205:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+140 code CODE >206:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+142 code CODE >207:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+144 code CODE >208:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+146 code CODE >209:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+148 code CODE >210:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+14C code CODE >211:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+14E code CODE >212:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+150 code CODE >216:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+152 code CODE >217:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+154 code CODE >218:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+156 code CODE >219:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+158 code CODE >220:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+15A code CODE >221:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+15E code CODE >222:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+160 code CODE >223:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+162 code CODE >224:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+164 code CODE >225:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+166 code CODE >226:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+16A code CODE >228:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+16E code CODE >231:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+170 code CODE >232:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+172 code CODE >233:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+176 code CODE >234:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+178 code CODE >235:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+17A code CODE >236:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+17E code CODE >237:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+180 code CODE >238:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+182 code CODE >239:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+184 code CODE >240:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+188 code CODE >241:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+18A code CODE >242:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+18C code CODE >243:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+190 code CODE >244:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+192 code CODE >245:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+194 code CODE >246:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+196 code CODE >247:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+19A code CODE >248:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+19C code CODE >249:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+19E code CODE >250:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1A2 code CODE >251:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1A4 code CODE >252:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1A6 code CODE >253:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1A8 code CODE >254:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1AC code CODE >255:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1AE code CODE >256:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1B0 code CODE >257:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1B4 code CODE >258:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1B6 code CODE >259:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1B8 code CODE >260:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1BA code CODE >263:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1BC code CODE >264:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1BE code CODE >265:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1C0 code CODE >267:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1C2 code CODE >268:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1C4 code CODE >270:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1C6 code CODE >271:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1CA code CODE >272:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1CC code CODE >273:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+1D0 code CODE >274:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+300 code CODE >14:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+310 code CODE >17:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+320 code CODE >20:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+330 code CODE >23:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+340 code CODE >26:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+350 code CODE >29:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+360 code CODE >32:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+370 code CODE >35:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+380 code CODE >38:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+390 code CODE >41:C:\Micro_2026_01\semana_4\versiculo_multiplexado.X\versiculo_multiplexado.s
+# %SYMTAB Section
+# An enumeration of all symbols in the program.
+# The beginning of the section is indicated by %SYMTAB.
+# Each line describes a single symbol as follows:
+#    <label> <value> [-]<load-adj> <class> <space> <psect> <file-name>
+# The value and load-adj are both in unqualified hexadecimal.
+# All other numeric values are in decimal.  The load-adj is the
+# quantity one needs to add to the symbol value in order to obtain the load
+# address of the symbol.  This value may be signed. If the symbol
+# was defined in a psect then <psect> will be "-". File-name
+# is the name of the object file in which the symbol was defined.
+%SYMTAB
+__Hspace_0 394 0 ABS 0 - -
+__Hspace_1 0 0 ABS 0 - -
+__Hspace_3 0 0 ABS 0 - -
+__Hspace_4 60000A 0 ABS 0 - -
+__Hudata_bank5 0 0 ABS 0 udata_bank5 -
+__Hudata_bank6 0 0 ABS 0 udata_bank6 -
+__Hudata_bank7 0 0 ABS 0 udata_bank7 -
+__Hudata_bank8 0 0 ABS 0 udata_bank8 -
+__Hudata_bank9 0 0 ABS 0 udata_bank9 -
+__L__absolute__ 0 0 ABS 0 __absolute__ -
+__Hudata_bank10 0 0 ABS 0 udata_bank10 -
+__Hudata_bank11 0 0 ABS 0 udata_bank11 -
+__Hudata_bank12 0 0 ABS 0 udata_bank12 -
+__Hudata_bank13 0 0 ABS 0 udata_bank13 -
+__Hudata_bank14 0 0 ABS 0 udata_bank14 -
+__Hudata_bank15 0 0 ABS 0 udata_bank15 -
+__Hudata_bank16 0 0 ABS 0 udata_bank16 -
+__Hudata_bank17 0 0 ABS 0 udata_bank17 -
+__Hudata_bank18 0 0 ABS 0 udata_bank18 -
+__Hudata_bank19 0 0 ABS 0 udata_bank19 -
+__Hudata_bank20 0 0 ABS 0 udata_bank20 -
+__Hudata_bank21 0 0 ABS 0 udata_bank21 -
+__Hudata_bank22 0 0 ABS 0 udata_bank22 -
+__Hudata_bank23 0 0 ABS 0 udata_bank23 -
+__Hudata_bank24 0 0 ABS 0 udata_bank24 -
+__Hudata_bank25 0 0 ABS 0 udata_bank25 -
+__Hudata_bank26 0 0 ABS 0 udata_bank26 -
+__Hudata_bank27 0 0 ABS 0 udata_bank27 -
+__Hudata_bank28 0 0 ABS 0 udata_bank28 -
+__Hudata_bank29 0 0 ABS 0 udata_bank29 -
+__Hudata_bank30 0 0 ABS 0 udata_bank30 -
+__Hudata_bank31 0 0 ABS 0 udata_bank31 -
+__Hudata_bank32 0 0 ABS 0 udata_bank32 -
+__Hudata_bank33 0 0 ABS 0 udata_bank33 -
+__Hudata_bank34 0 0 ABS 0 udata_bank34 -
+__Hudata_bank35 0 0 ABS 0 udata_bank35 -
+__Hudata_bank36 0 0 ABS 0 udata_bank36 -
+isa$xinst 0 0 ABS 0 - build/default/production/versiculo_multiplexado.o
+__Hedata 0 0 ABS 0 edata -
+__Hudata 0 0 ABS 0 udata -
+__Hconfig 30000A 0 CONFIG 4 config -
+__Ledata 0 0 ABS 0 edata -
+__Ludata 0 0 ABS 0 udata -
+__Hcode 0 0 ABS 0 code -
+__Hdata 0 0 ABS 0 data -
+__Lcode 0 0 ABS 0 code -
+__Ldata 0 0 ABS 0 data -
+__S0 0 0 ABS 0 - -
+__S1 0 0 ABS 0 - -
+__S3 0 0 ABS 0 - -
+__Ludata_bank10 0 0 ABS 0 udata_bank10 -
+__Ludata_bank11 0 0 ABS 0 udata_bank11 -
+__Ludata_bank12 0 0 ABS 0 udata_bank12 -
+__Ludata_bank13 0 0 ABS 0 udata_bank13 -
+__Ludata_bank14 0 0 ABS 0 udata_bank14 -
+__Ludata_bank15 0 0 ABS 0 udata_bank15 -
+__Ludata_bank16 0 0 ABS 0 udata_bank16 -
+__Ludata_bank17 0 0 ABS 0 udata_bank17 -
+__Ludata_bank18 0 0 ABS 0 udata_bank18 -
+__Ludata_bank19 0 0 ABS 0 udata_bank19 -
+__Ludata_bank20 0 0 ABS 0 udata_bank20 -
+__Ludata_bank21 0 0 ABS 0 udata_bank21 -
+__Ludata_bank22 0 0 ABS 0 udata_bank22 -
+__Ludata_bank23 0 0 ABS 0 udata_bank23 -
+__Ludata_bank24 0 0 ABS 0 udata_bank24 -
+__Ludata_bank25 0 0 ABS 0 udata_bank25 -
+__Ludata_bank26 0 0 ABS 0 udata_bank26 -
+__Ludata_bank27 0 0 ABS 0 udata_bank27 -
+__Ludata_bank28 0 0 ABS 0 udata_bank28 -
+__Ludata_bank29 0 0 ABS 0 udata_bank29 -
+__Ludata_bank30 0 0 ABS 0 udata_bank30 -
+__Ludata_bank31 0 0 ABS 0 udata_bank31 -
+__Ludata_bank32 0 0 ABS 0 udata_bank32 -
+__Ludata_bank33 0 0 ABS 0 udata_bank33 -
+__Ludata_bank34 0 0 ABS 0 udata_bank34 -
+__Ludata_bank35 0 0 ABS 0 udata_bank35 -
+__Ludata_bank36 0 0 ABS 0 udata_bank36 -
+__Lconfig 0 0 CONFIG 4 config -
+isa$std 1 0 ABS 0 - build/default/production/versiculo_multiplexado.o
+__Lspace_0 0 0 ABS 0 - -
+__Lspace_1 0 0 ABS 0 - -
+__Lspace_3 0 0 ABS 0 - -
+__Lspace_4 0 0 ABS 0 - -
+__Ludata_bank5 0 0 ABS 0 udata_bank5 -
+__Ludata_bank6 0 0 ABS 0 udata_bank6 -
+__Ludata_bank7 0 0 ABS 0 udata_bank7 -
+__Ludata_bank8 0 0 ABS 0 udata_bank8 -
+__Ludata_bank9 0 0 ABS 0 udata_bank9 -
+__H__absolute__ 0 0 ABS 0 __absolute__ -
+__Hudata_acs 0 0 ABS 0 udata_acs -
+__Ludata_acs 0 0 ABS 0 udata_acs -
+# %SPLITSTAB Section
+# This section enumerates all the psect splits performed by the assembler.
+# The beginning of the section is indicated by %SPLITSTAB.
+# Each line is a record a particular split, where the parent psect is on
+# the left and the child on the right.  Note that a child psect is always
+# split form the top of the parent psect. All splits from a given parent
+# are listed in the order in which they occurred.
+%SPLITSTAB
+# %DABS Section
+# This section contains a table of all usuage of the assember
+# directive DABS in the program. Each line has the following format:
+#   <name> <space> <address> <size>
+# If the DABS was originally labelled then that shall be <name>,
+# otherwise name will be "-".  The <space> number is in decimal.
+# <address> and <size> are in byte units as unqaulified hexadecimal
+%DABS
+# %SEGMENTS Section
+# This sections enumerates the segments of the program.  Each segment
+# is described on a single line as follows:
+#    <name> <space> <link address> <file address> <size> <delta>
+# Addresses and size are in unqualified hexadecimal.  The link address
+# and size are in units of delta. The file address is in units of bytes.
+# All other numeric quantities are in decimal.
+%SEGMENTS
+# %NOTES Section
+# This section contains data of all the note-psects.  The beginning of the section
+# is indicated by %NOTES. The first line indicates the name and decimal
+# byte-length of the first note-psect, e.g.
+#   $codecov_info_hdr 16
+# Each line that follows contains the byte-data of the psect in hexadecimal as a
+# space-separated list. These lines are limited to 16 bytes of data.
+%NOTES

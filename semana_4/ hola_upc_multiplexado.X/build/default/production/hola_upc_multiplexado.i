@@ -33319,7 +33319,7 @@ ENDM
     bsf TRISA,0, b ; entrada ((PORTA) and 0FFh), 0, a
     bcf ANSELA,0 , b ; digital ((PORTA) and 0FFh), 0, a
 
-    ; PIN QUE CONTROLA EL SELECTOR DEL MULTIPLEXOR
+    ; PIN QUE CONTROLA EL SELECTOR DEL MULTIPLEXOR/ los transistores
     movlw 11110000B ; -> B7 - B0
     movwf TRISB, b ; B0-B3 salida
     clrf ANSELB, b ; digital

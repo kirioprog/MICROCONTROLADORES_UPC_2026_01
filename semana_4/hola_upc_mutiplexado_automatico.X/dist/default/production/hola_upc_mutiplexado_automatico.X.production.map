@@ -4,12 +4,14 @@ Linker command line:
 
 -W-3 \
   --edf=C:\Program Files\Microchip\xc8\v3.10\pic\dat\20250813170317_en.msgs \
-  -cs -h+dist/default/debug\_hola_upc_multiplexado.X.debug.sym \
-  --cmf=dist/default/debug\_hola_upc_multiplexado.X.debug.cmf -z -Q18F57Q43 \
-  -oC:\Users\danie\AppData\Local\Temp\xcAsxn4.0\driver_tmp_3.o \
+  -cs \
+  -h+dist/default/production\hola_upc_mutiplexado_automatico.X.production.sym \
+  --cmf=dist/default/production\hola_upc_mutiplexado_automatico.X.production.cmf \
+  -z -Q18F57Q43 \
+  -oC:\Users\danie\AppData\Local\Temp\xcAst7g.0\driver_tmp_3.o \
   --fixupoverflow=error -ver=XC8 PIC(R) Assembler --fixupoverflow=lstwarn \
-  -Mdist/default/debug/_hola_upc_multiplexado.X.debug.map -E1 \
-  -ACODE=00h-01FFFFh -ACONST=00h-01FFFFh \
+  -Mdist/default/production/hola_upc_mutiplexado_automatico.X.production.map \
+  -E1 -ACODE=00h-01FFFFh -ACONST=00h-01FFFFh \
   -ASMALLCONST=02600h-026FFhx218,012600h-0126FFhx218 \
   -AMEDIUMCONST=02600h-0FFFFh,012600h-01FFFFh -ACOMRAM=0500h-055Fh \
   -AABS1=0500h-024FFh -ABIGRAM=0500h-024FFh \
@@ -27,7 +29,7 @@ Linker command line:
   -ASFR=00h-0FFhx4,0400h-045Fh,0460h-04FFh,02500h-025FFh \
   -ABIGSFR=00h-04FFh,02500h-025FFh -ACONFIG=030000Ah-0300011h \
   -AIDLOC=0200000h-020003Fh -AEEDATA=0380000h-03803FFh \
-  build/default/debug/hola_upc_multiplexado.o 
+  build/default/production/hola_upc_multiplexado_automatico.o 
 
 Object code version is 3.11
 
@@ -36,7 +38,7 @@ Machine type is 18F57Q43
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-build/default/debug/hola_upc_multiplexado.o
+build/default/production/hola_upc_multiplexado_automatico.o
                 config                           300000   300000        A        0       4
                 code                                  0        0      404        0       0
 
