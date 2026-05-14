@@ -11,7 +11,7 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$build/default/debug/contador_0_9999.o
+$build/default/production/contador_0_9999.o
 code CODE 0 0 0 118 1 2
 config CONFIG 4 300000 300000 A 1 1
 # %UNUSED Section
@@ -81,7 +81,7 @@ MEDIUMCONST 12600-1FFFF 1
 # are in ascending order of addresses.
 # All other numeric values are in decimal.
 %LINETAB
-$build/default/debug/contador_0_9999.o
+$build/default/production/contador_0_9999.o
 0 code CODE >18:C:\Micro_2026_01\semana_4\contador_0_9999.X\contador_0_9999.s
 20 code CODE >24:C:\Micro_2026_01\semana_4\contador_0_9999.X\contador_0_9999.s
 22 code CODE >27:C:\Micro_2026_01\semana_4\contador_0_9999.X\contador_0_9999.s
@@ -237,7 +237,7 @@ __Hudata_bank33 0 0 ABS 0 udata_bank33 -
 __Hudata_bank34 0 0 ABS 0 udata_bank34 -
 __Hudata_bank35 0 0 ABS 0 udata_bank35 -
 __Hudata_bank36 0 0 ABS 0 udata_bank36 -
-isa$xinst 0 0 ABS 0 - build/default/debug/contador_0_9999.o
+isa$xinst 0 0 ABS 0 - build/default/production/contador_0_9999.o
 __Hedata 0 0 ABS 0 edata -
 __Hudata 0 0 ABS 0 udata -
 __Hconfig 30000A 0 CONFIG 4 config -
@@ -278,7 +278,7 @@ __Ludata_bank34 0 0 ABS 0 udata_bank34 -
 __Ludata_bank35 0 0 ABS 0 udata_bank35 -
 __Ludata_bank36 0 0 ABS 0 udata_bank36 -
 __Lconfig 0 0 CONFIG 4 config -
-isa$std 1 0 ABS 0 - build/default/debug/contador_0_9999.o
+isa$std 1 0 ABS 0 - build/default/production/contador_0_9999.o
 __Lspace_0 0 0 ABS 0 - -
 __Lspace_1 0 0 ABS 0 - -
 __Lspace_3 0 0 ABS 0 - -

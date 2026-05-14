@@ -101,9 +101,6 @@ multiplex:
 	clrf millar,a
 	goto inicio
 
-;================================
-; DISPLAY UNIDAD
-;================================
 
 mostrar_unidad:
     movlw 01H
@@ -120,9 +117,7 @@ mostrar_unidad:
     
     return
 
-;================================
-; DISPLAY DECENA
-;================================
+
 
 mostrar_decena:
     movlw 02H
@@ -141,9 +136,7 @@ mostrar_decena:
 
     return
 
-;================================
-; DISPLAY CENTENA
-;================================
+
 
 mostrar_centena:
 
@@ -162,9 +155,7 @@ mostrar_centena:
 
     return
 
-;================================
-; DISPLAY MILLAR
-;================================
+
 
 mostrar_millar:
 
@@ -182,9 +173,6 @@ mostrar_millar:
 
     return
 
-;================================
-; TABLA
-;================================
 
 tabla:
     movlb    04H             ; bank 4 / recuerda que este banco controla los pines 
@@ -209,19 +197,16 @@ tabla:
     retlw    00H             ; apagado
     retlw    00H             ; apagado
 
-;================================
-; RETARDO
-;================================
 
 retardo:
 
     movlw 80
     movwf var2,a
 
-lazo:
+xxx:
 
     decfsz var2,f,a
-    goto lazo
+    goto xxx
 
     return
 

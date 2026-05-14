@@ -91,7 +91,7 @@ __Hudata_bank28 0 0 ABS 0
 __Ludata_bank28 0 0 ABS 0
 %segments
 %locals
-build/default/debug/contador_0_9999.o
+build/default/production/contador_0_9999.o
 contador_0_9999.s
 18 0 0 CODE 0
 24 20 0 CODE 0
