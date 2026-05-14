@@ -33282,7 +33282,7 @@ ENDM
   CONFIG CP = OFF ; PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
 # 5 "hola_upc_multiplexado_automatico.s" 2
 
-    ;define_XTAL_FREQ 4000000UL ; definimos una frecuenica de 4MHZ / Sirve para utilzar delay
+
     PSECT code, reloc = 2 , abs
  ; retardo
  variable1 equ 500H

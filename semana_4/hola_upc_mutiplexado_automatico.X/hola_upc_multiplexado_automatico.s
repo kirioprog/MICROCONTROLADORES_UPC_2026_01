@@ -3,7 +3,7 @@ PROCESSOR 18F57Q43
     #include<pic18f57q43.inc>
     #include"cabecera.inc"
     
-    ;define_XTAL_FREQ 4000000UL ;  definimos una frecuenica de 4MHZ / Sirve para utilzar delay 
+    
     PSECT code, reloc = 2 , abs
  ; retardo
  variable1 equ 500H

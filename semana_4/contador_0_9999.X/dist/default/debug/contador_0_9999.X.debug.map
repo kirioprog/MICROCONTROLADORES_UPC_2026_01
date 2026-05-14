@@ -4,15 +4,12 @@ Linker command line:
 
 -W-3 \
   --edf=C:\Program Files\Microchip\xc8\v3.10\pic\dat\20250813170317_en.msgs \
-  -cs \
-  -h+dist/default/production\hola_upc_mutiplexado_automatico.X.production.sym \
-  --cmf=dist/default/production\hola_upc_mutiplexado_automatico.X.production.cmf \
-  -z -Q18F57Q43 \
-  -oC:\Users\danie\AppData\Local\Temp\xcAst7g.0\driver_tmp_3.o \
+  -cs -h+dist/default/debug\contador_0_9999.X.debug.sym \
+  --cmf=dist/default/debug\contador_0_9999.X.debug.cmf -z -Q18F57Q43 \
+  -oC:\Users\danie\AppData\Local\Temp\xcAshpk.0\driver_tmp_3.o \
   --fixupoverflow=error -ver=XC8 PIC(R) Assembler --fixupoverflow=lstwarn \
-  -Mdist/default/production/hola_upc_mutiplexado_automatico.X.production.map \
-  -E1 -ACODE=00h-01FFFFh -ACONST=00h-01FFFFh \
-  -ASMALLCONST=02600h-026FFhx218,012600h-0126FFhx218 \
+  -Mdist/default/debug/contador_0_9999.X.debug.map -E1 -ACODE=00h-01FFFFh \
+  -ACONST=00h-01FFFFh -ASMALLCONST=02600h-026FFhx218,012600h-0126FFhx218 \
   -AMEDIUMCONST=02600h-0FFFFh,012600h-01FFFFh -ACOMRAM=0500h-055Fh \
   -AABS1=0500h-024FFh -ABIGRAM=0500h-024FFh \
   -ARAM=0560h-05FFh,0600h-06FFhx31 -ABANK5=0560h-05FFh -ABANK6=0600h-06FFh \
@@ -29,7 +26,7 @@ Linker command line:
   -ASFR=00h-0FFhx4,0400h-045Fh,0460h-04FFh,02500h-025FFh \
   -ABIGSFR=00h-04FFh,02500h-025FFh -ACONFIG=030000Ah-0300011h \
   -AIDLOC=0200000h-020003Fh -AEEDATA=0380000h-03803FFh \
-  build/default/production/hola_upc_multiplexado_automatico.o 
+  build/default/debug/contador_0_9999.o 
 
 Object code version is 3.11
 
@@ -38,13 +35,13 @@ Machine type is 18F57Q43
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-build/default/production/hola_upc_multiplexado_automatico.o
+build/default/debug/contador_0_9999.o
                 config                           300000   300000        A        0       4
-                code                                  0        0      404        0       0
+                code                                  0        0      118        0       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   CODE           
-                code                                  0        0      404         0
+                code                                  0        0      118         0
 
         CLASS   CONST          
 
@@ -177,18 +174,18 @@ UNUSED ADDRESS RANGES
         BANK8            000800-0008FF              100
         BANK9            000900-0009FF              100
         BIGRAM           000500-0024FF             2000
-        BIGSFR           000404-0004FF               FC
+        BIGSFR           000118-0004FF              3E8
                          002500-0025FF              100
-        CODE             000404-01FFFF            1FBFC
+        CODE             000118-01FFFF            1FEE8
         COMRAM           000500-00055F               60
         CONFIG           30000A-300011                8
-        CONST            000404-01FFFF            1FBFC
+        CONST            000118-01FFFF            1FEE8
         EEDATA           380000-3803FF              400
         IDLOC            200000-20003F               40
         MEDIUMCONST      002600-00FFFF             DA00
                          012600-01FFFF             DA00
         RAM              000560-0024FF              100
-        SFR              000404-0004FF               5C
+        SFR              000118-0004FF              100
                          002500-0025FF              100
         SMALLCONST       002600-00FFFF              100
                          012600-01FFFF              100
@@ -197,7 +194,7 @@ UNUSED ADDRESS RANGES
 
 __H__absolute__ __absolute__ 000000  __Hcode         code         000000
 __Hconfig       config       30000A  __Hdata         data         000000
-__Hedata        edata        000000  __Hspace_0      (abs)        000404
+__Hedata        edata        000000  __Hspace_0      (abs)        000118
 __Hspace_1      (abs)        000000  __Hspace_3      (abs)        000000
 __Hspace_4      (abs)        60000A  __Hudata        udata        000000
 __Hudata_acs    udata_acs    000000  __Hudata_bank10 udata_bank10 000000
