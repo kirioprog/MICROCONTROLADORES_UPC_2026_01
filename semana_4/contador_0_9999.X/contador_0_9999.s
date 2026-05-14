@@ -55,7 +55,7 @@ configuro:
 
 inicio:
 
-    movlw 5
+    movlw 100
     movwf var1,a
 
 multiplex:
@@ -200,7 +200,7 @@ tabla:
 
 retardo:
 
-    movlw 80
+    movlw 100
     movwf var2,a
 
 xxx:
