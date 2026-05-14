@@ -6,7 +6,7 @@ Linker command line:
   --edf=C:\Program Files\Microchip\xc8\v3.10\pic\dat\20250813170317_en.msgs \
   -cs -h+dist/default/production\_hola_upc_multiplexado.X.production.sym \
   --cmf=dist/default/production\_hola_upc_multiplexado.X.production.cmf -z \
-  -Q18F57Q43 -oC:\Users\danie\AppData\Local\Temp\xcAsxew.0\driver_tmp_3.o \
+  -Q18F57Q43 -oC:\Users\danie\AppData\Local\Temp\xcAsojo.0\driver_tmp_3.o \
   --fixupoverflow=error -ver=XC8 PIC(R) Assembler --fixupoverflow=lstwarn \
   -Mdist/default/production/_hola_upc_multiplexado.X.production.map -E1 \
   -ACODE=00h-01FFFFh -ACONST=00h-01FFFFh \

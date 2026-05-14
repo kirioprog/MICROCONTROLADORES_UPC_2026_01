@@ -33479,7 +33479,7 @@ tabla:
 
 retardo:
 
-    movlw 80
+    movlw 100
     movwf var2,a
 
 xxx:

@@ -46,6 +46,9 @@ configuro:
 
     clrf ANSELB,b
     clrf LATB,b
+    ; seleccionamos el mensaje a salir HOLA o MUNDO 
+    bsf TRISA,0,  b ; entrada RA0
+    bcf ANSELA,0 , b ; digital RA0
 
     ; limpiar variables
     clrf unidad,a
@@ -69,7 +72,10 @@ multiplex:
     call mostrar_millar
 
     decfsz var1,f,a ; decrementamos en 1 el contador para medir el tiempo 
-    goto multiplex ; si no llega a 0 sigue retadno
+    goto multiplex ; si no llega a 0 sigue retadno 
+    btfss PORTA,0,a  ; cuando activamos el interruptor pasamos a upc , asi que al inicio empieza con hola automaticamente 
+    goto contador
+    goto decrementar
     
     contador: ; se ejecuta cuando 7ua lega al final del var1 
 
@@ -101,7 +107,41 @@ multiplex:
 	clrf millar,a
 	goto inicio
 	
-  
+    
+    decrementar: ; se ejecuta cuando 7ua lega al final del var1 
+	
+	decf unidad,f,a ; pasmaos a 1 en el primer caso 
+	movlw 0
+	cpfseq unidad,a 
+	goto inicio ; si no llega a su limite vuele a ejecutar desde el inicio 
+		    ; en este caso unidad ya tendra 1 el cual ira a mostrar_unidad 
+	movlw 09H
+	movwf unidad,a ; si llega a su limite vuelve a contar dessde 0 
+
+	decf decena,f,a
+	movlw 0
+	cpfseq decena,a
+	goto inicio
+	movlw 09H
+	movwf decena,a
+
+	decf centena,f,a
+	movlw 0
+	cpfseq centena,a
+	goto inicio
+	movlw 09H
+	movwf centena,a
+
+
+	decf millar,f,a
+	movlw 0
+	cpfseq millar,a
+	goto inicio
+	movlw 09H
+	movwf millar,a
+	goto inicio
+
+
 mostrar_unidad:
     movlw 01H
     movwf LATB,b
@@ -210,4 +250,4 @@ xxx:
 
     return
 
-END
+end

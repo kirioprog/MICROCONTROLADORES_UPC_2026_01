@@ -1,11 +1,12 @@
-# 1 "hola_upc_multiplexado_automatico.s"
+# 1 "experimentob.s"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 296 "<built-in>" 3
 # 1 "<command line>" 1
 # 1 "<built-in>" 2
-# 1 "hola_upc_multiplexado_automatico.s" 2
+# 1 "experimentob.s" 2
 PROCESSOR 18F57Q43
+
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 1 3
 
 
@@ -33223,7 +33224,7 @@ stk_offset SET 0
 auto_size SET 0
 ENDM
 # 6 "C:\\Program Files\\Microchip\\xc8\\v3.10\\pic\\include/xc.inc" 2 3
-# 3 "hola_upc_multiplexado_automatico.s" 2
+# 4 "experimentob.s" 2
 
 # 1 "./cabecera.inc" 1
 
@@ -33280,144 +33281,252 @@ ENDM
 
 ; CONFIG10
   CONFIG CP = OFF ; PFM and Data EEPROM Code Protection bit (PFM and Data EEPROM code protection disabled)
-# 5 "hola_upc_multiplexado_automatico.s" 2
+# 6 "experimentob.s" 2
 
+PSECT code, reloc=2, abs
 
-    PSECT code, reloc = 2 , abs
- ; retardo
- variable1 equ 500H
- variable2 equ 501H
- ; retardo2
+unidad equ 500H
+decena equ 501H
+centena equ 502H
+millar equ 503H
 
- valor equ 505H
+var1 equ 504H
+var2 equ 505H
 
+ORG 0H
+goto configuro
 
- ORG 000300H
- mensaje1 : db 76H, 3FH, 38H, 77H ; con puntero almacenamos la palabra HOLA
+ORG 20H
 
- ORG 000400H
- mensaje2 : db 00H, 3EH, 73H, 39H ; con puntero almacenamos la palabra UPC
+configuro:
 
-
- ORG 0H
- goto configuro
- ORG 20H
-
- configuro:
     movlb 00H
+
+    ; reloj
     movlw 60H
-    movwf OSCCON1, b
+    movwf OSCCON1,b
+
     movlw 02H
-    movwf OSCFRQ, b
+    movwf OSCFRQ,b
+
     movlw 40H
-    movwf OSCEN, b
+    movwf OSCEN,b
 
-    ; pines del display 8 pines
+    ; puerto D
     movlb 04H
-    clrf TRISD, b ; salida PUERTO D
-    clrf ANSELD, b ; digital PUERTO D
-    clrf LATD, b ; salida empieza en 0v
 
+    clrf TRISD,b
+    clrf ANSELD,b
+    clrf LATD,b
 
-    ; PIN QUE CONTROLA EL SELECTOR DEL MULTIPLEXOR/ los transistores / 4 DISPLAY
-    movlw 11110000B ; -> B7 - B0
-    movwf TRISB, b ; B0-B3 salida
-    clrf ANSELB, b ; digital
-    clrf LATB, b ; empieza en 0v
+    ; puerto B
+    movlw 0F0H
+    movwf TRISB,b
+
+    clrf ANSELB,b
+    clrf LATB,b
+    ; seleccionamos el mensaje a salir HOLA o MUNDO
+    bsf TRISA,0, b ; entrada ((PORTA) and 0FFh), 0, a
+    bcf ANSELA,0 , b ; digital ((PORTA) and 0FFh), 0, a
+
+    ; limpiar variables
+    clrf unidad,a
+    clrf decena,a
+    clrf centena,a
+    clrf millar,a
 
 inicio:
-    movlb 05H
-    clrf valor, b
-    goto hola
+
+    movlw 100
+    movwf var1,a
+
+multiplex:
+
+    ; creamos el bucle para el codigo
+    ; lo reptimos el numero de vecesx mostrado arriba , es tan rapido que no se percibiria
+    ; mostramos los display
+    call mostrar_unidad
+    call mostrar_decena
+    call mostrar_centena
+    call mostrar_millar
+
+    decfsz var1,f,a ; decrementamos en 1 el contador para medir el tiempo
+    goto multiplex ; si no llega a 0 sigue retadno
+    btfss PORTA,0,a ; cuando activamos el interruptor pasamos a upc , asi que al inicio empieza con hola automaticamente
+    goto contador
+    goto decrementar
+
+    contador: ; se ejecuta cuando 7ua lega al final del var1
+
+ incf unidad,f,a ; pasmaos a 1 en el primer caso
+ movlw 9
+ cpfsgt unidad,a
+ goto inicio ; si no llega a su limite vuele a ejecutar desde el inicio
+      ; en este caso unidad ya tendra 1 el cual ira a mostrar_unidad
+
+ clrf unidad,a ; si llega a su limite vuelve a contar dessde 0
+
+ incf decena,f,a
+ movlw 9
+ cpfsgt decena,a
+ goto inicio
+ clrf decena,a
+
+ incf centena,f,a
+ movlw 9
+ cpfsgt centena,a
+ goto inicio
+ clrf centena,a
 
 
-    hola:
- clrf TBLPTRU, a ; en vez de hacer el movwf 00H y luego el movwf como todo es 0 pasamos degrente con el clrf
- movlw 03H
- movwf TBLPTRH, a
- clrf TBLPTRL, a
- call multiplexor
-
- movlb 05H
- incf valor, f, b
- movlw 250
- cpfseq valor, b
- goto hola
- goto arreglar_contador
-
-    arreglar_contador:
- movlb 05H
- clrf valor, b
- goto upc
-
-    upc:
- clrf TBLPTRU, a
- movlw 04H
- movwf TBLPTRH, a
- clrf TBLPTRL, a
- call multiplexor
- movlb 05H
- incf valor, f, b
- movlw 250
- cpfseq valor, b
- goto upc
+ incf millar,f,a
+ movlw 9
+ cpfsgt millar,a
+ goto inicio
+ clrf millar,a
  goto inicio
 
-    multiplexor:
- TBLRD*+ ; LEEMOS LOS DATOS A LOS QUE APUNTAMOS TBLPTR ->pasamos al registro TABLAT -> incrementamos el TBLPTR en 1
- ; osea ya no hacemos el incf
- ; OJO: TAMBIEN LO PUEDES HACER CON -
- movff TABLAT, LATD ; copiamos el vlaor de tablat a latd
- bsf LATB, 3, a ; ASI IMPRIMIMOS EL PIN EN LA POSICION DESCONTAR
 
- ; pasamos al banco 5 porque recurda que ahi esta nuestra variable1 variable2
- movlb 05H
- call retardo
- movlb 04H
- bcf LATB,3, a
+    decrementar: ; se ejecuta cuando 7ua lega al final del var1
 
- TBLRD*+
- movff TABLAT, LATD
- bsf LATB, 2, b
- movlb 05H
- call retardo
- movlb 04H
- bcf LATB,2, b
+ decf unidad,f,a ; pasmaos a 1 en el primer caso
+ movlw 0
+ cpfseq unidad,a
+ goto inicio ; si no llega a su limite vuele a ejecutar desde el inicio
+      ; en este caso unidad ya tendra 1 el cual ira a mostrar_unidad
+ movlw 09H
+ movwf unidad,a ; si llega a su limite vuelve a contar dessde 0
 
- TBLRD*+
- movff TABLAT, LATD
- bsf LATB, 1, b
- movlb 05H
- call retardo
- movlb 04H
- bcf LATB,1, b
+ decf decena,f,a
+ movlw 0
+ cpfseq decena,a
+ goto inicio
+ movlw 09H
+ movwf decena,a
+
+ decf centena,f,a
+ movlw 0
+ cpfseq centena,a
+ goto inicio
+ movlw 09H
+ movwf centena,a
 
 
- TBLRD*+
- movff TABLAT, LATD
- bsf LATB, 0, b
- movlb 05H
- call retardo
- movlb 04H
- bcf LATB,0, b
- return
+ decf millar,f,a
+ movlw 0
+ cpfseq millar,a
+ goto inicio
+ movlw 09H
+ movwf millar,a
+ goto inicio
 
 
+mostrar_unidad:
+    movlw 01H
+    movwf LATB,b
 
-    retardo:
-    movlb 05H
- movlw 10
- movwf variable1, b
-    mmm:
- movlw 110
- movwf variable2, b
-    nnn:
- decfsz variable2, 1, 1
- goto nnn
- decfsz variable1, 1, 1
- goto mmm
- return
+    movf unidad,w,a ;por contador unidad ya tiene 1
+    addwf unidad,w,a
+    call tabla
+    movwf LATD,b
+
+
+    call retardo
+
+
+    return
 
 
 
- end
+mostrar_decena:
+    movlw 02H
+    movwf LATB,b
+
+    movf decena,w,a
+    addwf decena,w,a
+    call tabla
+    movwf LATD,b
+
+
+
+    call retardo
+
+
+
+    return
+
+
+
+mostrar_centena:
+
+    movf centena,w,a
+    addwf centena,w,a
+    call tabla
+    movwf LATD,b
+
+
+    movlw 04H
+    movwf LATB,b
+
+    call retardo
+
+    clrf LATB,b
+
+    return
+
+
+
+mostrar_millar:
+
+    movf millar,w,a
+    addwf millar,w,a
+    call tabla
+    movwf LATD,b
+
+    movlw 08H
+    movwf LATB,b
+
+    call retardo
+
+    clrf LATB,b
+
+    return
+
+
+tabla:
+    movlb 04H ; bank 4 / recuerda que este banco controla los pines
+    addwf PCL,f,b
+    retlw 3FH ; 0
+    retlw 06H ; 1
+    retlw 5BH ; 2
+    retlw 4FH ; 3
+    retlw 66H ; 4
+    retlw 6DH ; 5
+    retlw 7DH ; 6
+    retlw 07H ; 7
+    retlw 7FH ; 8
+    retlw 6FH ; 9
+
+    ; PORQUE PONEMOS ESTOS APAGADO ?
+    ; si en algun momento wreg es 10 u otro valor mas grande protgege el display de que no se ejecute algo raro
+    retlw 00H ; apagado
+    retlw 00H ; apagado
+    retlw 00H ; apagado
+    retlw 00H ; apagado
+    retlw 00H ; apagado
+    retlw 00H ; apagado
+
+
+retardo:
+
+    movlw 100
+    movwf var2,a
+
+xxx:
+
+    decfsz var2,f,a
+    goto xxx
+
+    return
+
+end
